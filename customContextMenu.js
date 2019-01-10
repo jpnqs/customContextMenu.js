@@ -55,6 +55,17 @@ const customContextMenu = {
 		let sep = document.createElement('div');
 		return sep;
 	},
+	createSubmenu: function (text, content) {
+		let div = document.createElement('div');
+		let cont = document.createElement('div');
+		div.innerHTML = text;
+		div.addEventListener('mouseover', ev => {
+		
+		});
+		div.addEventListener('mouseout', ev => {
+		
+		});
+	},
 	buildFromTemplate: function (tem) {
 		if (Array.isArray(tem)) {
 			this.setup();
