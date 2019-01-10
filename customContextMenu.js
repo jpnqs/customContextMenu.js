@@ -29,6 +29,15 @@ const customContextMenu = {
 					let sep = this.createSeperatorElement();
 					this.content.push(sep);
 				break;
+				case 'submenu':
+					let content = el.content;
+					if (content == undefined) {
+						throw new Error('You have to enter an array to submenu content');
+					}
+					content.forEach(el => {
+						this.addElement(el);
+					});
+				break;
 			}
 		} else {
 			throw new Error('You have to enter a type definition of context menu item');
@@ -68,28 +77,6 @@ const customContextMenu = {
 }
 
 // Setting up context menu example
-/*
-customContextMenu.setup();
-customContextMenu.addElement({
-	type: 'button',
-	text: 'click me',
-	click: c => {
-		console.log('hello world');
-	}
-});
-customContextMenu.addElement({
-	type: 'seperator'
-});
-customContextMenu.addElement({
-	type: 'button',
-	text: 'just another button',
-	click: c => {
-		console.log('another click');
-	}
-});*/
-
-// Same as
-
 customContextMenu.buildFromTemplate([
 	{
 		type: 'button',
@@ -100,6 +87,15 @@ customContextMenu.buildFromTemplate([
 	},
 	{
 		type: 'seperator'
+	},
+	{
+		type: 'submenu',
+		content: [
+			{
+				type: 'button',
+				text: 'button'
+			}
+		],
 	},
 	{
 		type: 'button',
