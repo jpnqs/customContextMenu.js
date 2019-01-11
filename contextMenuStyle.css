@@ -4,6 +4,8 @@
 .ctxButton, .ctxSubmenu {
   background-color: white;
   width: 100%;
+  border-style: none;
+  text-align: left;
 }
 
 .ctxButton:hover, .ctxSubmenu:hover {
