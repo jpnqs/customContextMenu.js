@@ -6,7 +6,7 @@
 			this.container = document.createElement('div');
 			this.id = this.generateId();
 			this.container.id = this.id;
-			let bodys = document.getElementsByTagName('body');
+			let bodys = document.getElementsByTagName('html');
 			bodys[0].appendChild(this.container);
 		},
 		generateId: function () {
@@ -24,8 +24,12 @@
 					case 'button':
 						let text = el.text;
 						let click = el.click;
-						let btn = this.createButtonElement(text, click);
-						this.content.push(btn);
+						if (typeof click == 'function') {
+							let btn = this.createButtonElement(text, click);
+							this.content.push(btn);
+						} else {
+							throw new Error('You have to enter a function as event handler for context button');
+						}
 					break;
 					case 'seperator':
 						let sep = this.createSeperatorElement();
@@ -51,6 +55,7 @@
 			btn.className = 'ctxButton';
 			btn.addEventListener('click', ev => {
 				click(ev);
+				this.hide();
 			});
 			return btn;
 		},
@@ -109,7 +114,10 @@
 			content: [
 				{
 					type: 'button',
-					text: 'button'
+					text: 'button',
+					click: c => {
+						console.log('hi');
+					}
 				}
 			],
 		},
@@ -118,6 +126,13 @@
 			text: 'just another button',
 			click: c => {
 				console.log('another click');
+			}
+		}, 
+		{
+			type: 'button',
+			text: 'hi',
+			click: c => {
+				alert('hi dude!');
 			}
 		}
 	]);
