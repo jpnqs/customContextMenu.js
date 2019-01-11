@@ -82,6 +82,8 @@
 		},
 		buildFromTemplate: function (tem) {
 			if (Array.isArray(tem)) {
+				this.content = [];
+				this.container.innerHTML = '';
 				this.setup();
 				tem.forEach(el => {
 					this.addElement(el);
