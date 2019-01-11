@@ -1,14 +1,23 @@
 	const customContextMenu = {
 		content: [],
 		container: null,
+		clickedElement: null,
+		width: '',
+		height: '',
 		id: '',
 		setup: function () {
+			this.setupListener();
 			this.container = document.createElement('div');
 			this.id = this.generateId();
 			this.container.id = this.id;
+			this.container.className = 'ctxContainer';
 			let bodys = document.getElementsByTagName('html');
 			if (bodys.length > 0) {
+				this.setupHTMLElements();
 				bodys[0].appendChild(this.container);
+				this.hide();
+				this.width = this.container.width + 'px';
+				this.height = this.container.height + 'px';
 			} else {
 				throw new Error('you need to have a html tag in your document');
 			}
@@ -20,6 +29,27 @@
 			  .substring(1);
 		  }
 		  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+		},
+		setupListener: function () {
+			document.addEventListener('contextmenu', ev => {
+				this.clickedElement = ev.path[0];
+				this.hide();
+				this.show();
+				let top = ev.clientY + 'px';
+				let left = ev.clientX + 'px';
+				this.container.style.top = top;
+				this.container.style.left = left;
+				ev.preventDefault();
+			}); 
+			document.addEventListener('click', ev => {
+				this.hide();
+			});
+			window.addEventListener('blur', ev => {
+				this.hide();
+			});
+			window.addEventListener('focus', ev => {
+				this.hide();
+			});
 		},
 		addElement: function (el) {
 			let type = el.type;
@@ -40,13 +70,8 @@
 						this.content.push(sep);
 					break;
 					case 'submenu':
-						let content = el.content;
-						if (content == undefined) {
-							throw new Error('You have to enter an array to submenu content');
-						}
-						content.forEach(el => {
-							this.addElement(el);
-						});
+						let div = this.createSubmenu(el.text, el.content);
+						this.content.push(div);
 					break;
 				}
 			} else {
@@ -69,37 +94,40 @@
 			return sep;
 		},
 		createSubmenu: function (text, content) {
-			let div = document.createElement('div');
-			div.className = 'ctxSubmenu';
-			let cont = document.createElement('div');
-			div.innerHTML = text;
-			div.addEventListener('mouseover', ev => {
-			
-			});
-			div.addEventListener('mouseout', ev => {
-			
-			});
+
 		},
 		buildFromTemplate: function (tem) {
 			if (Array.isArray(tem)) {
 				this.content = [];
-				this.container.innerHTML = '';
+				if (this.container != null) {
+					this.container.innerHTML = '';
+				}
 				this.setup();
 				tem.forEach(el => {
 					this.addElement(el);
 				});
-				this.show();
 			} else {
 				throw new Error('You have to enter an array');
 			}
 		},
+		setupHTMLElements: function () {
+			if (this.container != null) {
+				if (this.content.length != this.container.children.length) {
+					this.content.forEach(el => {
+						this.container.appendChild(el);
+					});	
+				}
+			}
+		},
 		show: function () {
-			this.content.forEach(el => {
-				this.container.appendChild(el);
-			});
+			this.container.className = 'ctxContainer';
+			this.setupHTMLElements();
 		},
 		hide: function () {
-			this.container.innerHTML = '';
+			if (this.container != null) {
+				this.container.className = 'ctxContainerHidden';
+				//this.container.innerHTML = null;
+			}
 		}
 	}
 
@@ -107,38 +135,33 @@
 	customContextMenu.buildFromTemplate([
 		{
 			type: 'button',
-			text: 'click me',
+			text: 'button 1',
 			click: c => {
-				console.log('hello world');
+				alert('button 1');
+			}
+		},
+		{
+			type: 'button',
+			text: 'button 2',
+			click: c => {
+				alert('button 2');
 			}
 		},
 		{
 			type: 'seperator'
 		},
 		{
-			type: 'submenu',
-			content: [
-				{
-					type: 'button',
-					text: 'button',
-					click: c => {
-						console.log('hi');
-					}
-				}
-			],
+			type: 'button',
+			text: 'button 3',
+			click: c => {
+				alert('button 3');
+			}
 		},
 		{
 			type: 'button',
-			text: 'just another button',
+			text: 'button 4',
 			click: c => {
-				console.log('another click');
-			}
-		}, 
-		{
-			type: 'button',
-			text: 'hi',
-			click: c => {
-				alert('hi dude!');
+				alert('button 4');
 			}
 		}
 	]);
