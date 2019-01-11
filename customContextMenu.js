@@ -7,7 +7,11 @@
 			this.id = this.generateId();
 			this.container.id = this.id;
 			let bodys = document.getElementsByTagName('html');
-			bodys[0].appendChild(this.container);
+			if (bodys.length > 0) {
+				bodys[0].appendChild(this.container);
+			} else {
+				throw new Error('you need to have a html tag in your document');
+			}
 		},
 		generateId: function () {
 		  function s4() {
