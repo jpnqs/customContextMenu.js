@@ -50,6 +50,9 @@
 			window.addEventListener('focus', ev => {
 				this.hide();
 			});
+			window.addEventListener('keyup', ev => {
+				this.hide();
+			}); 
 		},
 		addElement: function (el) {
 			let type = el.type;
