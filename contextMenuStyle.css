@@ -1,0 +1,27 @@
+/* Contextmenu | CSS */
+
+/* context button | context submenu */
+.ctxButton, .ctxSubmenu {
+  background-color: white;
+  width: 100%;
+}
+
+.ctxButton:hover, .ctxSubmenu:hover {
+  background-color: lightgray;
+}
+
+.ctxButton:active, .ctxSubmenu:active {
+  background-color: silver;
+}
+
+/* context seperator */
+.ctxSeperator {
+  background-color: gray;
+  height: 1px;
+  width: 100%;
+}
+
+/* context submenu */
+.ctxSubmenu {
+
+}
