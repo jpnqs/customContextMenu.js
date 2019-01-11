@@ -1,5 +1,31 @@
 /* Contextmenu | CSS */
 
+.ctxButton, .ctxSeperator, .ctxSubmenu {
+	font-family: Arial;
+	-webkit-touch-callout: none; 
+    -webkit-user-select: none; 
+    -khtml-user-select: none; 
+    -moz-user-select: none; 
+    -ms-user-select: none;
+    user-select: none; 
+	margin-top: 2px;
+	margin-bottom: 2px;
+	
+}
+
+.ctxButton:focus, .ctxSubmenu:focus {
+	outline: 0;	
+	background-color: #eee;
+}
+
+.ctxButton, .ctxSubmenu {
+	padding: 3px;
+}
+
+.ctxButton:disabled, .ctxSubmenu:disabled {
+	color: lightgray;
+}
+
 /* context button | context submenu */
 .ctxButton, .ctxSubmenu {
   background-color: white;
@@ -9,16 +35,16 @@
 }
 
 .ctxButton:hover, .ctxSubmenu:hover {
-  background-color: lightgray;
+  background-color: #eee;
 }
 
 .ctxButton:active, .ctxSubmenu:active {
-  background-color: silver;
+  background-color: #ddd;
 }
 
 /* context seperator */
 .ctxSeperator {
-  background-color: gray;
+  background-color: lightgray;
   height: 1px;
   width: 100%;
 }
