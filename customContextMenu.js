@@ -197,7 +197,6 @@
 		 */
 		hide: function () {
 			if (this.container != null) {
-				this.hideAllSubmenus();
 				this.container.className = 'ctxContainerHidden';
 			}
 		}
