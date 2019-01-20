@@ -2,48 +2,38 @@
 
 only ES6 compatible
 
-## Example
+# Example
 
+## `HTML`
+You have to include in the HTML file the CSS-Style file 'contextMenuStyle.css' and the JS file 'customContextMenu.js'
+```html
+<head>
+	<link rel="stylesheet" href="contextMenuStyle.css"/>
+	<script src="customContextMenu.js"></script>
+</head>
+```
+
+## `JavaScript`
+Setting up the context menu using the function 'buildFromTemplate' 
 ```js
-
 	// Setting up context menu example
 	customContextMenu.buildFromTemplate([
 		{
 			type: 'button',
-			text: 'click me',
+			text: 'button 1',
 			click: c => {
-				console.log('hello world');
+				console.log('clicked button 1');
 			}
 		},
 		{
 			type: 'seperator'
 		},
 		{
-			type: 'submenu',
-			content: [
-				{
-					type: 'button',
-					text: 'button',
-					click: c => {
-						console.log('hi');
-					}
-				}
-			],
-		},
-		{
 			type: 'button',
-			text: 'just another button',
+			text: 'button 2',
 			click: c => {
-				console.log('another click');
-			}
-		}, 
-		{
-			type: 'button',
-			text: 'hi',
-			click: c => {
-				alert('hi dude!');
+				alert('clicked button 2');
 			}
 		}
 	]);
-	
 ```
